@@ -1,0 +1,67 @@
+
+CREATE DATABASE IF NOT EXISTS rentproperty;
+
+RentProperty
+USE rentproperty;
+CREATE TABLE IF NOT EXISTS usuario(
+	id_usuario INT NOT NULL,
+	usuario VARCHAR (100) NOT NULL,
+	contrasena VARCHAR (100) NOT NULL,
+	nombre VARCHAR (100) NOT NULL,
+	apellido VARCHAR (100) NOT NULL,
+	telefono INT (10) NOT NULL,
+	email VARCHAR (100) NOT NULL,
+	ciudad VARCHAR (100) NOT NULL,
+	PRIMARY KEY (id_usuario)
+)ENGINE=INNODB DEFAULT CHARSET=LATIN1;
+
+USE rentproperty;
+CREATE TABLE IF NOT EXISTS inmueble(
+	id_inmueble INT (11) NOT NULL,
+	tipo_inmueble VARCHAR (100) DEFAULT NULL,
+	ciudad_inmueble VARCHAR (100) DEFAULT NULL,
+	zona_inmueble VARCHAR (100) DEFAULT NULL,
+	descripcion_inmueble TEXT DEFAULT NULL,
+	precio_inmueble INT (10),
+	disponible_inmueble BOOLEAN DEFAULT NULL,
+	reserva_cita DATETIME DEFAULT NULL,  
+	PRIMARY KEY (id_inmueble)
+)ENGINE=INNODB DEFAULT CHARSET=LATIN1;
+
+USE rentproperty;
+CREATE TABLE IF NOT EXISTS contrato(
+	id_usuario  INT (11) NOT NULL,
+	id_inmueble INT (11) NOT NULL,
+	id_contrato INT (11) NOT NULL,
+	fecha_contrato DATETIME DEFAULT NULL, 
+	PRIMARY KEY (id_usuario, id_inmueble, id_contrato) USING BTREE,
+	KEY FK_usuario (id_usuario),
+	CONSTRAINT FK_usuario FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario),
+	CONSTRAINT FK_inmueble FOREIGN KEY (id_inmueble) REFERENCES inmueble (id_inmueble)
+)ENGINE=INNODB DEFAULT CHARSET=LATIN1;
+
+USE rentproperty;
+INSERT INTO usuario (id_usuario, usuario, contrasena, nombre, apellido, telefono, email, ciudad) VALUES
+(1, "us1", "123", "Juan", "Perez", 3371234, "juan@gmail.com", "Pereira"),
+(2, "us2", "123", "Joaquin", "Rubio", 3371233, "joaquin@gmail.com", "Manizales"),
+(3, "us3", "123", "Joan", "Alvira", 3371254, "joan@gmail.com", "Bogota"),
+(4, "us4", "123", "Alberto", "Smith", 3371634, "alberto@gmail.com", "Medellin"),
+(5, "us5", "123", "Manuel", "Martinez", 3381234, "manuel@gmail.com", "Cali"),
+(6, "us6", "123", "Alejandra", "Suarez", 3371334, "alejandra@gmail.com", "Barranquilla"),
+(7, "us7", "123", "Milena", "Rodriguez", 3371231, "milena@gmail.com", "Bucaramanga"),
+(8, "us8", "123", "Norelys", "Jimenez", 3371221, "norelys@gmail.com", "Santa Marta"),
+(9, "us9", "123", "Wendy", "Suarez", 3371230, "wendy@gmail.com", "Cartagena"),
+(10, "us10", "123", "Laura", "Almento", 3371298, "laura@gmail.com", "Ibague");
+
+USE rentproperty;
+INSERT INTO inmueble (id_inmueble, tipo_inmueble, ciudad_inmueble, zona_inmueble, descripcion_inmueble, precio_inmueble, disponible_inmueble, reserva_cita) VALUES
+(100, "casa", "Ibague", "urbana", "4 alcobas 2 baños", 1200000, FALSE, '2022-09-04 14:21:57'),
+(101, "apartamento", "Manizales", "urbana", "4 alcobas 3 baños", 1300000, FALSE, '2022-05-04 14:21:59'),
+(102, "casa", "Pereira", "urbana", "2 alcobas 1 baño", 1400000, FALSE, '2022-10-04 14:21:17'),
+(103, "apartamento", "Bogota", "urbana", "1 alcoba1 1 baño", 1500000, TRUE, '2022-09-04 14:21:57'),
+(104, "casa", "Medellin", "urbana", "2 alcobas 2 baños", 1600000, TRUE, '2022-09-04 14:21:57'),
+(105, "apartamento", "Cali", "rural", "3 alcobas 2 baños", 1700000, TRUE, '2022-09-02 14:21:57'),
+(106, "casa", "Barranquilla", "rural", "4 alcobas 2 baños", 1800000, FALSE, '2022-09-01 14:21:57'),
+(107, "apartamento", "Santa Marta", "rural", "5 alcobas 2 baños", 1900000, FALSE, '2022-09-04 14:21:57'),
+(108, "casa", "Cartagena", "urbana", "2 alcobas 1 baños", 2200000, FALSE, '2022-09-03 14:21:57'),
+(109, "apartamento", "Bucaramanga", "rural", "3 alcobas 2 baños", 2100000, TRUE, '2022-08-04 14:21:57');
