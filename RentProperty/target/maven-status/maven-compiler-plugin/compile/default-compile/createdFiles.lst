@@ -1,4 +1,4 @@
-beans\Contrato.class
 beans\Usuario.class
+beans\Contrato.class
 beans\Inmueble.class
 servlets\Prueba.class
